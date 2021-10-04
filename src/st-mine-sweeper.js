@@ -23,7 +23,45 @@ import { NotImplementedError } from '../extensions/index.js';
  *  [1, 1, 1]
  * ]
  */
-export default function minesweeper (/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function minesweeper(matrix) {
+  const copy = JSON.parse(JSON.stringify(matrix));
+
+  for (let i = 0; i < copy.length; i++) {
+    for (let j = 0; j < copy[i].length; j++) {
+      copy[i][j] = 0;
+
+      if (matrix[i + 1] !== undefined && matrix[i + 1][j] === true) {
+        copy[i][j] += 1;
+      }
+
+      if (matrix[i - 1] !== undefined && matrix[i - 1][j] === true) {
+        copy[i][j] += 1;
+      }
+
+      if (matrix[i - 1] !== undefined && matrix[i - 1][j + 1] === true) {
+        copy[i][j] += 1;
+      }
+
+      if (matrix[i - 1] !== undefined && matrix[i - 1][j - 1] === true) {
+        copy[i][j] += 1;
+      }
+
+      if (matrix[i + 1] !== undefined && matrix[i + 1][j - 1] === true) {
+        copy[i][j] += 1;
+      }
+
+      if (matrix[i + 1] !== undefined && matrix[i + 1][j + 1] === true) {
+        copy[i][j] += 1;
+      }
+
+      if (matrix[i][j + 1] === true) {
+        copy[i][j] += 1;
+      }
+
+      if (matrix[i][j - 1] === true) {
+        copy[i][j] += 1;
+      }
+    }
+  }
+  return copy;
 }
