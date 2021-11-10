@@ -24,44 +24,25 @@ import { NotImplementedError } from '../extensions/index.js';
  * ]
  */
 export default function minesweeper(matrix) {
-  const copy = JSON.parse(JSON.stringify(matrix));
+  const field = JSON.parse(JSON.stringify(matrix))
 
-  for (let i = 0; i < copy.length; i++) {
-    for (let j = 0; j < copy[i].length; j++) {
-      copy[i][j] = 0;
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      field[i][j] = 0
 
-      if (matrix[i + 1] !== undefined && matrix[i + 1][j] === true) {
-        copy[i][j] += 1;
+      if (matrix[i][j + 1] || matrix[i][j - 1]) {
+        field[i][j] += 1
       }
 
-      if (matrix[i - 1] !== undefined && matrix[i - 1][j] === true) {
-        copy[i][j] += 1;
+      if (matrix[i + 1]) {
+        if (matrix[i + 1][j + 1] || matrix[i + 1][j - 1] || matrix[i + 1][j]) field[i][j] += 1
       }
 
-      if (matrix[i - 1] !== undefined && matrix[i - 1][j + 1] === true) {
-        copy[i][j] += 1;
-      }
-
-      if (matrix[i - 1] !== undefined && matrix[i - 1][j - 1] === true) {
-        copy[i][j] += 1;
-      }
-
-      if (matrix[i + 1] !== undefined && matrix[i + 1][j - 1] === true) {
-        copy[i][j] += 1;
-      }
-
-      if (matrix[i + 1] !== undefined && matrix[i + 1][j + 1] === true) {
-        copy[i][j] += 1;
-      }
-
-      if (matrix[i][j + 1] === true) {
-        copy[i][j] += 1;
-      }
-
-      if (matrix[i][j - 1] === true) {
-        copy[i][j] += 1;
+      if (matrix[i - 1]) {
+        if (matrix[i - 1][j + 1] || matrix[i - 1][j - 1] || matrix[i - 1][j]) field[i][j] += 1
       }
     }
   }
-  return copy;
+
+  return field
 }

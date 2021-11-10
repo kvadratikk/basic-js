@@ -14,59 +14,39 @@ import { NotImplementedError } from '../extensions/index.js';
  * 
  */
 export default function transform(arr) {
-  if (!Array.isArray(arr)) {
-    throw new Error("'arr' parameter must be an instance of the Array!");
-  }
+  if (!Array.isArray(arr)) throw new Error("'arr' parameter must be an instance of the Array!")
 
-  if (arr.indexOf('--discard-next') === -1 && arr.indexOf('--discard-prev') === -1 && arr.indexOf('--double-prev') === -1 && arr.indexOf('--double-next') === -1) {
-    return arr
-  }
+  const newArr = [...arr]
 
-  let newArr = [...arr]
+  for (let i = 0; i < newArr.length; i++) {
+    if (typeof newArr[i] !== 'number') {
+      if (newArr[i] === '--discard-prev') {
+        newArr[i] = -99
+        newArr[i - 1] = -99
+      }
 
-  if (arr.indexOf('--discard-next') != -1 && arr.indexOf('--double-prev') != -1) {
-    newArr.splice(newArr.indexOf('--discard-next'), 2)
-    newArr.splice(newArr.indexOf('--double-prev'), 1)
-    return newArr
-  }
+      if (newArr[i] === '--discard-next') {
+        newArr[i] = -99
+        newArr[i + 1] = -99
+      }
 
-  if (arr.indexOf('--discard-next') != -1 && arr.indexOf('--discard-prev') != -1) {
-    newArr.splice(newArr.indexOf('--discard-next'), 2)
-    newArr.splice(newArr.indexOf('--discard-prev'), 1)
-    return newArr
-  }
+      if (newArr[i] === '--double-prev') {
+        if (newArr[i - 1] !== -99 && newArr[i - 1] != null) {
+          newArr[i] = newArr[i - 1]
+        } else {
+          newArr[i] = -99
+        }
+      }
 
-  if (arr.indexOf('--double-next') != -1) {
-    if (arr.length - 1 <= arr.indexOf('--double-next')) {
-      newArr.splice(arr.indexOf('--double-next'), 1)
-      return newArr
+      if (newArr[i] === '--double-next') {
+        if (newArr[i + 1] !== -99 && newArr[i + 1] != null) {
+          newArr[i] = newArr[i + 1]
+        } else {
+          newArr[i] = -99
+        }
+      }
     }
-    newArr.splice(newArr.indexOf('--double-next'), 1, newArr[newArr.indexOf('--double-next') + 1])
   }
 
-  if (arr.indexOf('--double-prev') != -1) {
-    if (arr.indexOf('--double-prev') === 0) {
-      newArr.splice(0, 1)
-      return newArr
-    }
-    newArr.splice(newArr.indexOf('--double-prev'), 1, newArr[newArr.indexOf('--double-prev') - 1])
-  }
-
-  if (arr.indexOf('--discard-next') != -1) {
-    if (arr.length - 1 <= arr.indexOf('--discard-next')) {
-      newArr.splice(arr.indexOf('--discard-next'), 1)
-      return newArr
-    }
-    newArr.splice(newArr.indexOf('--discard-next'), 2)
-  }
-
-  if (arr.indexOf('--discard-prev') != -1) {
-    if (arr.indexOf('--discard-prev') === 0) {
-      newArr.splice(0, 1)
-      return newArr
-    }
-    newArr.splice(newArr.indexOf('--discard-prev') - 1, 2)
-  }
-
-  return newArr
+  return newArr.filter(el => el !== -99)
 }

@@ -11,24 +11,17 @@ import { NotImplementedError } from '../extensions/index.js';
  *
  */
 export default function encodeLine(str) {
-  let res = '';
+  let res = ''
+  let num = 1
 
   for (let i = 0; i < str.length; i++) {
-    const value = str[i];
-    let count = 1;
-
-    for (i; str[i + 1] === value; i++) {
-      count += 1;
-    }
-
-    if (str.length === 1) {
-      res += str;
-    } else if (count === 1) {
-      res += String(value);
+    if (str[i] === str[i + 1]) {
+      num += 1
     } else {
-      res += String(count + value);
+      res += num + str[i]
+      num = 1
     }
   }
 
-  return res;
+  return res.split('').filter(el => el != 1).join('')
 }

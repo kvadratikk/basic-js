@@ -12,13 +12,11 @@ import { NotImplementedError } from '../extensions/index.js';
  *
  */
 export default function deleteDigit(n) {
-  const nCopy = String(n).split('');
+  const nCopy = String(n).split('')
 
-  const min = String(Math.min(...nCopy));
+  const min = String(Math.min(...nCopy))
 
-  const idx = nCopy.indexOf(min);
+  nCopy.splice(nCopy.indexOf(min), 1)
 
-  nCopy.splice(idx, 1);
-
-  return Number(nCopy.join(''));
+  return Number(nCopy.join(''))
 }

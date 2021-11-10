@@ -18,7 +18,7 @@ export default class DepthCalculator {
 
     for (let el of arr) {
       if (Array.isArray(el)) {
-        let depth = this.calculateDepth(el)
+        const depth = this.calculateDepth(el)
 
         if (depth >= count) {
           count = depth + 1

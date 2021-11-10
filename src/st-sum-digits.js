@@ -13,11 +13,11 @@ import { NotImplementedError } from '../extensions/index.js';
  *
  */
 export default function getSumOfDigits(n) {
-  const sum = String(n).split('').map(Number).reduce((a, b) => a + b);
+  const sum = String(n).split('').map(Number).reduce((a, b) => a + b)
 
   while (String(sum).length > 1) {
-    return getSumOfDigits(sum);
+    return getSumOfDigits(sum)
   }
 
-  return sum;
+  return sum
 }

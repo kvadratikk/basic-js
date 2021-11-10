@@ -13,11 +13,11 @@ import { NotImplementedError } from '../extensions/index.js';
  */
 export default function getSeason(date) {
   if (!date) { return 'Unable to determine the time of year!'; }
-  if (String(date) == new Date() || Object.prototype.toString.call(date) !== "[object Date]" || !(date instanceof Date)) {
+  if (String(date) == new Date() || !(date instanceof Date)) {
     throw new Error('Invalid date!')
   }
 
-  let month = date.getMonth()
+  const month = date.getMonth()
 
   if (month == 11 || month == 0 || month == 1) return 'winter'
   else if (month == 2 || month == 3 || month == 4) return 'spring'

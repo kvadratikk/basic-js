@@ -12,33 +12,17 @@ import { NotImplementedError } from '../extensions/index.js';
  * Strings have 3 common characters - 2 "a"s and 1 "c".
  */
 export default function getCommonCharacterCount(s1, s2) {
-  let res = 0;
+  const arr1 = s1.split('')
+  const arr2 = s2.split('')
 
-  const s11 = s1.split('').sort();
-  const s22 = s2.split('').sort();
+  let common = 0
 
-  const res1 = s11.reduce((acc, el) => {
-    acc[el] = (acc[el] || 0) + 1;
-    return acc;
-  }, {});
-
-  const res2 = s22.reduce((acc, el) => {
-    acc[el] = (acc[el] || 0) + 1;
-    return acc;
-  }, {});
-
-  const arr1 = Object.keys(res1);
-  const arr2 = Object.keys(res2);
-
-  for (let i = 0; i < Math.max(arr1.length, arr2.length); i++) {
-    if (JSON.stringify(arr1) === JSON.stringify(arr2)) {
-      return Math.min(s11.length, s22.length);
-    }
-
-    if (arr1.indexOf(arr2[i]) !== -1 || arr2.indexOf(arr1[i]) !== -1) {
-      res += 1;
+  for (let el of arr2) {
+    if (arr1.includes(el)) {
+      arr1.splice(arr1.indexOf(el), 1)
+      common += 1
     }
   }
 
-  return res;
+  return common
 }

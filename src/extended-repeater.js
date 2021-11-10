@@ -16,27 +16,24 @@ import { NotImplementedError } from '../extensions/index.js';
  *
  */
 export default function repeater(str, options) {
-  let {
+  const {
     repeatTimes = 1,
     separator = '+',
     addition = '',
     additionRepeatTimes = 1,
     additionSeparator = '|'
-  } = options;
+  } = options
 
-  let a = [];
-  let b = [];
+  const main = []
+  const add = []
 
   for (let i = 0; i < repeatTimes; i++) {
-    a.push(str);
+    main.push(str);
   }
 
   for (let i = 0; i < additionRepeatTimes; i++) {
-    b.push('' + addition);
+    add.push('' + addition);
   }
 
-  const c = b.join(additionSeparator);
-
-  a = a.map(item => item + c)
-  return a.join(separator);
+  return main.map(item => item + add.join(additionSeparator)).join(separator)
 }

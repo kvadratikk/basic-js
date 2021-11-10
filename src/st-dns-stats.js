@@ -23,28 +23,28 @@ import { NotImplementedError } from '../extensions/index.js';
  *
  */
 export default function getDNSStats(domains) {
-  const arr = [];
-  const res = {};
+  const arr = []
+  const res = {}
 
   domains.forEach(domain => {
-    arr.push(domain.split('.'));
-  });
+    arr.push(domain.split('.'))
+  })
 
   arr.forEach(item => {
-    let str = '';
+    let str = ''
 
     for (let i = item.length - 1; i >= 0; i--) {
-      str += '.' + item[i];
+      str += '.' + item[i]
 
       if (!res.hasOwnProperty(str)) {
-        res[str] = 1;
+        res[str] = 1
       } else {
-        res[str] += 1;
+        res[str] += 1
       }
     }
 
-    str = '';
-  });
+    str = ''
+  })
 
-  return res;
+  return res
 }

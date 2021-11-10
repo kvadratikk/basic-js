@@ -14,18 +14,17 @@ import { NotImplementedError } from '../extensions/index.js';
  * ]) => 3`
  *
  */
-export default function countCats(m) {
+export default function countCats(matrix) {
   let count = 0;
 
-  for (let arr of m) {
+  for (let arr of matrix) {
 
     for (let el of arr) {
 
       if (el === '^^') {
 
         count += 1;
-
-      } else { count === 0 };
+      };
     }
   }
 
